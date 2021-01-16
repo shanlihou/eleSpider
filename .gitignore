@@ -1,0 +1,8 @@
+node_modules
+data
+.vscode
+*.swp
+out
+download
+package-lock.json
+comic.bak
