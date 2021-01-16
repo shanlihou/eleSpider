@@ -9,8 +9,7 @@ const fs = require('fs')
 const path = require('path')
 
 
-const G_DIRBASE = 'reality';
-const G_CONFIG = require('./' + CONST.spiderContent + '/' + G_DIRBASE + '/config');
+const G_CONFIG = require('./' + CONST.spiderContent + '/' + CONST.spiderDir + '/config');
 
 
 const LISTEN_LIST = [
@@ -126,7 +125,7 @@ function _addScript() {
     function* _makeUrlIter() {
         yield path.join('inner', 'innerUtils.js');
         for (url of jsList) {
-            yield path.join(CONST.spiderContent, G_DIRBASE, url);
+            yield path.join(CONST.spiderContent, CONST.spiderDir, url);
         }
     }
     let urlIter = _makeUrlIter();
