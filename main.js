@@ -71,12 +71,13 @@ function createWindow() {
             return;
         }
         console.log('will-down', item.getURL(), saveInfo, globalData.jpgCache)
-        let pathName = path.dirname(saveInfo.saveName);
+        let fullPath = utils.getDownloadDir(app) + '\\' + saveInfo.saveName;
+        let pathName = path.dirname(fullPath);
         utils.mkdir(pathName);
-        item.setSavePath(saveInfo.saveName);
+        item.setSavePath(fullPath);
         item.on('updated', (event, state) => {
             if (state === 'interrupted') {
-                console.log('Download is interrupted but can be resumed')
+                console.log('Download is interrupted but can be resumed', event)
                 item.resume();
             } else if (state === 'progressing') {
                 if (item.isPaused()) {

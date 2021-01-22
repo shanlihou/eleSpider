@@ -33,14 +33,16 @@ def zip_one(src_path, dst_path):
         zip_ya(_src, _dst)
 
 def main():
+    download_dir = os.path.join('output', 'download')
+    zip_dir = os.path.join('output', 'zip')
     try:
-        os.mkdir('out')
+        os.mkdir(zip_dir)
     except:
         pass
-
-    for i in os.listdir('download'):
-        path = os.path.join('download', i)
-        dst_path = os.path.join('out', i)
+    
+    for i in os.listdir(download_dir):
+        path = os.path.join(download_dir, i)
+        dst_path = os.path.join(zip_dir, i)
         zip_one(path, dst_path)
 
 if __name__ == '__main__':

@@ -15,7 +15,13 @@ function mkdir(pathname) {
     fs.mkdirSync(pathname);
 }
 
+function getDownloadDir(app) {
+    let appPath = app.getAppPath();
+    return appPath + '\\output\\download';
+}
+
 
 module.exports = {
-    mkdir
+    mkdir,
+    getDownloadDir,
 };
