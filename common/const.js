@@ -1,6 +1,6 @@
 CONST = {
     spiderContent: 'spider',
-    spiderDir: 'comic',
+    spiderDir: 'reality',
     timeOut: 30
 }
 

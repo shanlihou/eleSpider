@@ -1,5 +1,10 @@
-main_url = "http://m.90mh.com/manhua/DrSTONEshijiyuan/"
+//main_url = "http://m.90mh.com/manhua/DrSTONEshijiyuan/"
+main_url = "index.html";
 content_scripts = [
+    {
+        matches: [/index.html/],
+        js:["main.js"]
+    },
     {
         matches: [/http:\/\/m\.90mh\.com\/manhua\/\w+\/$/,],
         js:["reality.js"]

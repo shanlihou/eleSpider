@@ -39,7 +39,7 @@ def main():
         os.mkdir(zip_dir)
     except:
         pass
-    
+
     for i in os.listdir(download_dir):
         path = os.path.join(download_dir, i)
         dst_path = os.path.join(zip_dir, i)

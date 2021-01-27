@@ -27,8 +27,6 @@ let G_ID_INDEX = 1;
 globalData['mainTimerId'] = 0;
 globalData['jpgCache'] = {}
 function createWindow() {
-    console.log('will create window');
-    console.log('global:', globalData)
     mainWindow = new BrowserWindow({
         width: 10,
         height: 10,
@@ -62,6 +60,7 @@ function createWindow() {
             timeCount++;
             if (timeCount > CONST.timeOut) {
                 console.log('time out')
+                dataUtils.loadUrl(globalData['curUrl']);
             }
         }, 1000);
     })

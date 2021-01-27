@@ -6,6 +6,8 @@ function loadUrl(url) {
         globalData['mainTimerId'] = 0;
     }
 
+    globalData['curUrl'] = url;
+
     if (url == "index.html") {
         globalData.mainWindow.loadFile(url);
     }

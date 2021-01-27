@@ -10,11 +10,21 @@ function nextPage() {
     })
 }
 
+function nextComic() {
+    let first = null;
+    rpc.getGlobalData('comic_urls').then((comic_urls)=>{
+        first = comic_urls.shift();
+        return rpc.setGlobalData('comic_urls', comic_urls)
+    }).then(()=>{
+        return rpc.loadWithUrl(first);
+    })
+}
+
 function nextChapter() {
     let nextPageInfo = null;
     rpc.getGlobalData('pages').then((pages)=>{
         if (pages.length == 0) {
-            console.log('spider end')
+            nextComic();
             return
         }
 
@@ -44,7 +54,7 @@ function downJpg() {
     let cur_span = p10_title.querySelector('#k_page');
     let total_span = p10_title.querySelector('#k_total');
 
-    let dirname = 'output\\download\\' + getDir() + '\\' + title + "\\" + cur_span.innerHTML + ".jpg"
+    let dirname = getDir() + '\\' + title + "\\" + cur_span.innerHTML + ".jpg"
     rpc.downloadOne(imgUrl, dirname).then((ret)=>{
         if (cur_span.innerHTML == total_span.innerHTML) {
             nextChapter();
