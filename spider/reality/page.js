@@ -41,16 +41,20 @@ function getDir() {
 }
 
 function downJpg() {
-    let mip_img = document.querySelector('mip-img');
+    let mip_img = document.querySelector('#chapter-image');
     if (mip_img == null) {
         rpc.loadWithUrl(window.location.href).then(()=>{console.log('go self again')});
         return;
     }
+    console.log('img:', mip_img)
+    let img = mip_img.querySelector('img');
 
-    let imgUrl = mip_img.getAttribute('src');
+    let imgUrl = img.getAttribute('src');
+
     let p10_title = getElementByAttr('div', 'class', 'p10 title3');
     let title_a = p10_title.querySelector('span');
     let title = title_a.childNodes[1].wholeText.substring(1);
+
     let cur_span = p10_title.querySelector('#k_page');
     let total_span = p10_title.querySelector('#k_total');
 

@@ -2,7 +2,6 @@ import os
 import zipfile
 import sys
 
-ROOT = '..\\download\\wangxianglaoshi'
 
 def zip_ya(start_dir, file_news):
     start_dir = start_dir  # 要压缩的文件夹路径
