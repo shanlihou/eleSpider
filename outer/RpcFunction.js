@@ -8,8 +8,6 @@ var G_GLOBAL_DATA = {};
 var G_RPC_RET_LIST = [];
 
 
-
-
 function onRpcRet(rpcId, args) {
     G_RPC_RET_LIST.push({
         rpcId: rpcId,
@@ -35,6 +33,10 @@ function rpc_test(rpcId, arg, arg2) {
 
 function rpc_loadWithUrl(rpcId, url) {
     onRpcRet(rpcId, []);
+
+    if (url == null) {
+        return;
+    }
     dataUtils.loadUrl(url);
 }
 

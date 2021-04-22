@@ -27,7 +27,7 @@ function getChapters() {
         let a = li.querySelector('a');
         pages.push({
             url: a.href,
-            title: a.innerText,
+            title: encodeURI(a.innerText),
         })
     }
     console.log(pages)

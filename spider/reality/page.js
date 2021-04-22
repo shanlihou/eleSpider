@@ -29,6 +29,10 @@ function nextChapter() {
         }
 
         nextPageInfo = pages.shift();
+        if (nextPageInfo == null) {
+            nextComic();
+            return;
+        }
         return rpc.setGlobalData('pages', pages)
     }).then(()=>{
         return rpc.loadWithUrl(nextPageInfo.url)
@@ -58,7 +62,7 @@ function downJpg() {
     let cur_span = p10_title.querySelector('#k_page');
     let total_span = p10_title.querySelector('#k_total');
 
-    let dirname = getDir() + '\\' + title + "\\" + cur_span.innerHTML + ".jpg"
+    let dirname = getDir() + '\\' + encodeURI(title) + "\\" + cur_span.innerHTML + ".jpg"
     rpc.downloadOne(imgUrl, dirname).then((ret)=>{
         if (cur_span.innerHTML == total_span.innerHTML) {
             nextChapter();
