@@ -31,6 +31,9 @@ function createWindow() {
         width: 10,
         height: 10,
         webPreferences: {
+            contextIsolation: false,
+            nodeIntegrationInWorker: true,
+            webSecurity: false,
             nodeIntegration: true,
             preload: path.join(__dirname, 'inner', 'preload.js')
         }
