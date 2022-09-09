@@ -40,6 +40,16 @@ function rpc_loadWithUrl(rpcId, url) {
     dataUtils.loadUrl(url);
 }
 
+function rpc_clearMainTimer(rpcId) {
+    if (globalData['mainTimerId']) {
+        clearInterval(globalData['mainTimerId']);
+        globalData['mainTimerId'] = 0;
+        console.log('clear timer')
+    }
+
+    onRpcRet(rpcId, [])
+}
+
 function rpc_setGlobalData(rpcId, key, value) {
     G_GLOBAL_DATA[key] = value;
     onRpcRet(rpcId, []);
@@ -107,6 +117,7 @@ module.exports = {
     rpc_rename,
     rpc_logMain,
     rpc_downloadOne,
+    rpc_clearMainTimer,
     rpc_setNotReload,
     sendRpcRet
 };
