@@ -150,7 +150,7 @@ function rpc_downloadOne(rpcId, url, saveName) {
         return;
     }
 
-    globalData.jpgCache[url] = {
+    globalData.jpgCache = {
         saveName: saveName,
         func: func
     };

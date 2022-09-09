@@ -50,6 +50,11 @@ function rpc_getGlobalData(rpcId, key) {
     onRpcRet(rpcId, [value]);
 }
 
+function rpc_setNotReload(rpcId) {
+    globalData.notReload = true;
+    onRpcRet(rpcId, [])
+}
+
 function rpc_getFileList(rpcId, dirPath) {
     try {
         let ret = fs.readdirSync(dirPath);
@@ -86,7 +91,7 @@ function rpc_downloadOne(rpcId, url, saveName) {
         return;
     }
 
-    globalData.jpgCache[url] = {
+    globalData.jpgCache = {
         saveName: saveName,
         func: func
     };
@@ -102,5 +107,6 @@ module.exports = {
     rpc_rename,
     rpc_logMain,
     rpc_downloadOne,
+    rpc_setNotReload,
     sendRpcRet
 };

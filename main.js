@@ -25,7 +25,7 @@ const LISTEN_LIST = [
 ];
 let G_ID_INDEX = 1;
 globalData['mainTimerId'] = 0;
-globalData['jpgCache'] = {}
+globalData['jpgCache'] = null;
 function createWindow() {
     mainWindow = new BrowserWindow({
         width: 10,
@@ -59,13 +59,15 @@ function createWindow() {
         globalData['mainTimerId'] = setInterval(() => {
             timeCount++;
             if (timeCount > CONST.timeOut) {
-                console.log('time out')
-                dataUtils.loadUrl(globalData['curUrl']);
+                console.log('time out', globalData.notReload)
+                if (globalData.notReload == null) {
+                    dataUtils.loadUrl(globalData['curUrl']);
+                }
             }
         }, 1000);
     })
     mainWindow.webContents.session.on('will-download', (event, item, webContents) => {
-        let saveInfo = globalData.jpgCache[item.getURL()];
+        let saveInfo = globalData.jpgCache;
         if (!saveInfo) {
             return;
         }
@@ -86,17 +88,18 @@ function createWindow() {
                 }
             }
         })
+
         item.once('done', (event, state) => {
             if (state === 'completed') {
                 if (saveInfo.func) {
                     saveInfo.func();
-                    delete globalData.jpgCache[item.getURL()];
+                    globalData.jpgCache = null;
                 }
             } else {
-                console.log(`Download failed: ${state}`)
+                console.log(`Download failed: ${state} ${event}`)
                 if (saveInfo.func) {
                     saveInfo.func();
-                    delete globalData.jpgCache[item.getURL()];
+                    globalData.jpgCache = null;
                 }
             }
         })

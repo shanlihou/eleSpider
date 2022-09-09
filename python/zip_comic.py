@@ -41,6 +41,47 @@ def zip_one(src_path, dst_path):
         #print(_dst, _src)
         zip_ya(_src, _dst)
 
+def rec_path(path, func):
+    for i in os.listdir(path):
+        filename = os.path.join(path, i)
+        func(filename)
+        if os.path.isdir(filename):
+            rec_path(filename, func)
+
+
+class PicaCompresser(object):
+    def __init__(self, root) -> None:
+        self.root = root
+
+    def find_original(self):
+        origin_list = []
+        def _func(filename):
+            if filename.endswith('original'):
+                origin_list.append(filename)
+
+        rec_path(self.root, _func)
+        return origin_list
+
+    def compress_original(self, filename):
+        dirname = os.path.dirname(filename)
+        newpath = os.path.join(dirname, 'compressed')
+        try:
+            os.mkdir(newpath)
+        except Exception as e:
+            pass
+
+        for i in os.listdir(filename):
+            origin_name = os.path.join(filename, i)
+            newname = os.path.join(newpath, '{}.zip'.format(i))
+            zip_ya(origin_name, newname)
+
+    def compress_all(self):
+        originals = self.find_original()
+        print(originals)
+        for i in originals:
+            self.compress_original(i)
+
+
 def main():
     download_dir = os.path.join('output', 'download')
     zip_dir = os.path.join('output', 'zip')
@@ -84,6 +125,8 @@ if __name__ == '__main__':
         if sys.argv[1] == 'encode_dir':
             encode_dir()
         elif sys.argv[1] == 'test':
-            print(urllib.parse.unquote('%E5%A4%96%E4%BC%A04'))
+            pi = PicaCompresser(r'G:\shcomic\commies')
+            pi.compress_all()
     else:
         main()
+
